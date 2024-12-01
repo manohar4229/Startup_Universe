@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const worksans = localFont({
   src: [
@@ -59,7 +60,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={worksans.variable}>{children}</body>
+      <body className={worksans.variable}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

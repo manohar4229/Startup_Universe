@@ -4,17 +4,20 @@ import { STARTUP_BY_ID_QUERY } from "@/sanity/lib/queries";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import markdownit from "markdown-it";
+import { Skeleton } from "@/components/ui/skeleton";
+import View from "@/components/View";
 
 const md = markdownit();
 
+export const experimental_ppr = true;
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
   if (!post) return notFound();
 
-  const parsedContent = md.render(post?.pitch || "");
+  const parsedContent = md.render(post?.pitch || " ");
   return (
     <>
       <section className="pink_container !min-h-[230px]">
@@ -29,7 +32,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           className="w-full h-80 rounded-xl"
         /> */}
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
-          <div className="felx-between gap-5">
+          <div className="flex-between gap-5">
             <Link
               href={`/user/${post.author?._id}`}
               className="flex gap-2 items-center mb-3"
@@ -51,12 +54,20 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             <p className="category-tag">{post.category}</p>
           </div>
           <h3 className="text-30-bold">Startup Details</h3>
-          (!parsedContent?(
-          <article dangerouslySetInnerHTML={{ __html: parsedContent }} />
-          ):(
-          <p className="no-result"></p>
-          ))
+          {parsedContent ? (
+            <article
+              className="prose max-w-4xl font-work-sans break-all"
+              dangerouslySetInnerHTML={{ __html: parsedContent }}
+            />
+          ) : (
+            <p className="no-result">No details provided</p>
+          )}
         </div>
+        <hr className="divider" />
+
+        <Suspense fallback={<Skeleton className="view_skeleton" />}>
+          <View id={id} />
+        </Suspense>
       </section>
     </>
   );
