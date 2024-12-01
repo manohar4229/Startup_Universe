@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const worksans = localFont({
   src: [
@@ -51,7 +52,8 @@ const worksans = localFont({
 });
 export const metadata: Metadata = {
   title: "StartUp Universe",
-  description: "Building StartUp Community and collaboration",
+  description:
+    "Discover Startup Universe, the platform where entrepreneurs showcase their ideas, connect with innovators, and gain exposure. Submit your startup, explore pitches, and join a thriving entrepreneurial community today!",
 };
 
 export default function RootLayout({
@@ -65,6 +67,7 @@ export default function RootLayout({
         {children}
         <Toaster />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
