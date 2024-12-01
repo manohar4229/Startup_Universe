@@ -219,3 +219,7 @@
 .w-md-editor-toolbar {
   padding: 10px !important;
 }
+
+#sentry-feedback {
+  --page-margin: 16px;
+}
