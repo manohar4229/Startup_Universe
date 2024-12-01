@@ -79,6 +79,11 @@ Ensure you have the following installed:
 
    Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
 
+   🌐 Live Demo
+   Check out the live app here: [Startup Universe](https://startup-universe.vercel.app/)
+
+
+
 ---
 
 Happy Coding! 🚀
